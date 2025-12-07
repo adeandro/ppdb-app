@@ -1,6 +1,9 @@
 import { useState } from "react";
 import type { Pendaftar } from "../../types/Pendaftar";
 
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../lib/firebase";
+
 const initialForm: Pendaftar = {
   nama: "",
   nisn: "",
@@ -19,10 +22,21 @@ export default function Daftar() {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSummitted([...submitted, form]);
-    setForm(initialForm);
+
+    try {
+      await addDoc(collection(db, "pendaftar"), {
+        ...form,
+        createdAt: new Date(),
+      });
+
+      setForm(initialForm);
+      alert("Pendaftaran berhasil!");
+    } catch (error) {
+      console.error(error);
+      alert("Terjadi kesalahan saat mendaftar.");
+    }
   };
 
   return (
@@ -78,7 +92,7 @@ export default function Daftar() {
           <h2 className="font-bold mb-2">Data Masuk (Dummy)</h2>
           {submitted.map((s, i) => (
             <div key={i} className="border p-2 mb-2">
-              {s.nama} – {s.jurusan}
+              {s.nama} - {s.jurusan}
             </div>
           ))}
         </div>
