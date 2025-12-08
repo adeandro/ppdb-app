@@ -37,6 +37,12 @@ export default function Pendaftar() {
         onChange={(e) => setSearch(e.target.value)}
       />
 
+      {filteredData.length === 0 && data.length > 0 && (
+        <div className="mb-4 text-red-600 font-semibold">
+          Tidak ada pendaftar yang sesuai dengan pencarian.
+        </div>
+      )}
+
       <table className="min-w-full border">
         <thead className="bg-gray-800 text-white">
           <tr>
