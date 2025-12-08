@@ -13,7 +13,6 @@ const initialForm: Pendaftar = {
 
 export default function Daftar() {
   const [form, setForm] = useState<Pendaftar>(initialForm);
-  const [submitted, setSummitted] = useState<Pendaftar[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -85,18 +84,6 @@ export default function Daftar() {
 
         <button className="bg-blue-600 text-white px-4 py-2">Daftar</button>
       </form>
-
-      {/* Preview hasil submit */}
-      {submitted.length > 0 && (
-        <div className="mt-6">
-          <h2 className="font-bold mb-2">Data Masuk (Dummy)</h2>
-          {submitted.map((s, i) => (
-            <div key={i} className="border p-2 mb-2">
-              {s.nama} - {s.jurusan}
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
