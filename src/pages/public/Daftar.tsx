@@ -13,6 +13,7 @@ const initialForm: Pendaftar = {
 
 export default function Daftar() {
   const [form, setForm] = useState<Pendaftar>(initialForm);
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -31,7 +32,7 @@ export default function Daftar() {
       });
 
       setForm(initialForm);
-      alert("Pendaftaran berhasil!");
+      setSuccess(true);
     } catch (error) {
       console.error(error);
       alert("Terjadi kesalahan saat mendaftar.");
@@ -40,6 +41,11 @@ export default function Daftar() {
 
   return (
     <div className="max-w-xl mx-auto p-6">
+      {success && (
+        <div className="bg-green-100 text-green-800 p-4 mb-4 rounded">
+          Pendaftaran berhasil!
+        </div>
+      )}
       <h1 className="text-2xl font-bold mb-4">Form PPDB</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">

@@ -9,7 +9,15 @@ export default function ProtectedRoute({
 }) {
   const { user, loading } = useAuth();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <h1 className="text-5xl text-gray-800 font-bold uppercase">
+          Mengambil data
+        </h1>
+      </div>
+    );
+  }
   if (!user) return <Navigate to="/admin/login" replace />;
 
   return children;
