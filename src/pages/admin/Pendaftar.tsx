@@ -6,6 +6,7 @@ import type { Pendaftar } from "../../types/Pendaftar";
 export default function Pendaftar() {
   const [data, setData] = useState<Pendaftar[]>([]);
   const [search, setSearch] = useState<string>("");
+  const [sort, setSort] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +26,12 @@ export default function Pendaftar() {
       item.asalSekolah.toLowerCase().includes(search.toLowerCase())
   );
 
+  const sortedData = filteredData.sort((a, b) => {
+    return sort === "asc"
+      ? a.nama.localeCompare(b.nama)
+      : b.nama.localeCompare(a.nama);
+  });
+
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Data Pendaftar</h1>
@@ -37,7 +44,14 @@ export default function Pendaftar() {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {filteredData.length === 0 && data.length > 0 && (
+      <button
+        className="border px-3 py-2 ml-2"
+        onClick={() => setSort(sort === "asc" ? "desc" : "asc")}
+      >
+        Sort {sort === "asc" ? "Z-A" : "A-Z"}
+      </button>
+
+      {sortedData.length === 0 && data.length > 0 && (
         <div className="mb-4 text-red-600 font-semibold">
           Tidak ada pendaftar yang sesuai dengan pencarian.
         </div>
