@@ -26,10 +26,10 @@ export default function Pendaftar() {
       item.asalSekolah.toLowerCase().includes(search.toLowerCase())
   );
 
-  const sortedData = filteredData.sort((a, b) => {
+  const sortedData = [...filteredData].sort((a, b) => {
     return sort === "asc"
-      ? a.nama.localeCompare(b.nama)
-      : b.nama.localeCompare(a.nama);
+      ? a.nama.localeCompare(b.nama, undefined, { sensitivity: "base" })
+      : b.nama.localeCompare(a.nama, undefined, { sensitivity: "base" });
   });
 
   return (
@@ -79,7 +79,7 @@ export default function Pendaftar() {
               </td>
             </tr>
           )}
-          {filteredData.map((item, index) => (
+          {sortedData.map((item, index) => (
             <tr key={index} className="hover:bg-gray-50">
               <td className="border px-3 py-2">{index + 1}</td>
               <td className="border px-3 py-2">{item.nama}</td>
