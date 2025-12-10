@@ -11,8 +11,8 @@ export default function ProtectedRoute({
 
   if (loading) {
     return (
-      <div className="w-full min-h-screen flex justify-center items-center">
-        <h1 className="text-5xl text-gray-800 font-bold uppercase">
+      <div className="w-full min-h-screen flex justify-center items-center ">
+        <h1 className="text-5xl text-gray-800 font-bold uppercase animate-pulse">
           Mengambil data
         </h1>
       </div>
